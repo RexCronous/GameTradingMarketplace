@@ -15,14 +15,13 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price', 12, 2);
-            $table->enum('status', ['available', 'sold', 'traded'])->default('available');
+            $table->enum('status', ['available', 'sold', 'traded', 'pending'])->default('available');
             $table->string('category')->nullable();
             $table->integer('quantity')->default(1);
             $table->timestamps();
             
             $table->index('user_id');
             $table->index('status');
-            $table->fullText(['name', 'description']);
         });
     }
 

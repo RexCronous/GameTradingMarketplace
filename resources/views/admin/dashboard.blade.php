@@ -51,7 +51,7 @@
             <div class="icon">
                 <i class="fas fa-hourglass-half"></i>
             </div>
-            <a href="{{ route('admin.transactions') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.transactions.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>

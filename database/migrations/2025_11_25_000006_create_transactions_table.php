@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('offer_item_id')->nullable()->constrained('items')->onDelete('set null');
             $table->decimal('offer_amount', 12, 2)->nullable();
-            $table->decimal('total_price', 12, 2);
+            $table->decimal('total_price', 12, 2)->nullable();
             $table->enum('type', ['buy', 'trade'])->default('buy');
             $table->enum('status', ['pending', 'accepted', 'rejected', 'completed', 'cancelled'])->default('pending');
             $table->text('notes')->nullable();
@@ -26,7 +26,6 @@ return new class extends Migration
             
             $table->index('buyer_id');
             $table->index('seller_id');
-            $table->index('item_id');
             $table->index('status');
         });
     }
