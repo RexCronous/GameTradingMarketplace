@@ -34,8 +34,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-<<<<<<< Updated upstream
-=======
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -70,7 +68,7 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
->>>>>>> Stashed changes
+    
     /**
      * Get the attributes that should be cast.
      *
