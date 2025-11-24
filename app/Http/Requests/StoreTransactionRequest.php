@@ -22,11 +22,11 @@ class StoreTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'buyer_id' => ['required', 'exists:users,id'],
-            'seller_id' => ['required', 'exists:users,id'],
-            'total_price' => ['required', 'numeric', 'min:0'],
-            'type' => ['required', 'in:buy,trade'],
-            'status' => ['sometimes', 'in:pending,paid,completed,cancelled'],
+            'type' => 'required|in:buy,trade',
+            'offer_item_id' => 'nullable|exists:items,id|required_if:type,trade',
+            'offer_amount' => 'nullable|numeric|min:0|required_if:type,buy',
+            'total_price' => 'required|numeric|min:0',
+            'notes' => 'nullable|string|max:500',
         ];
     }
 }

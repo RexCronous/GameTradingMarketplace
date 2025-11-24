@@ -2,29 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Item;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    //
     public function index()
     {
-        // if admin, show admin dashboard else show user dashboard
-        /** @var \App\Models\User|null $user */
         $user = Auth::user();
 
-        if ($user && $user->hasRole('admin')) {
-            $users = User::all();
-            $transactions = Transaction::with('items.item')->latest()->limit(50)->get();
-            return view('admin.dashboard', compact('users', 'transactions'));
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.dashboard');
         }
 
-        // simple user dashboard: show own items
-        $items = $user ? $user->items()->get() : collect();
-        return view('dashboard', compact('items'));
+        return view('dashboard', [
+            'totalItems' => $user->items()->count(),
+            'completedTrades' => $user->buyerTransactions()->where('status', 'completed')->count() + 
+                               $user->sellerTransactions()->where('status', 'completed')->count(),
+            'pendingOffers' => $user->sellerTransactions()->where('status', 'pending')->count(),
+            'totalPlayers' => User::where('role', 'user')->count(),
+            'recentItems' => $user->items()->latest()->take(5)->get(),
+            'recentTransactions' => Transaction::where(function($q) use ($user) {
+                $q->where('buyer_id', $user->id)->orWhere('seller_id', $user->id);
+            })->latest()->take(5)->get(),
+        ]);
     }
-
 }

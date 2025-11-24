@@ -2,74 +2,99 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Item;
+use App\Http\Requests\StoreTransactionRequest;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $tx = Transaction::where('buyer_id', Auth::id())->orWhere('seller_id', Auth::id())->get();
-        return response()->json($tx);
+        $userId = Auth::id();
+        $transactions = Transaction::where(function($q) use ($userId) {
+            $q->where('buyer_id', $userId)->orWhere('seller_id', $userId);
+        })->with('buyer', 'seller', 'item', 'offerItem')->latest()->paginate(20);
+
+        return view('transactions.index', compact('transactions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(Transaction $transaction)
     {
-        return response()->json(['message' => 'render transaction form']);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        return response()->json(['message' => 'transactions are created via offer acceptance']);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $tx = Transaction::with('items.item')->findOrFail($id);
-        if ($tx->buyer_id !== Auth::id() && $tx->seller_id !== Auth::id()) {
-            return response()->json(['message' => 'forbidden'], 403);
+        $userId = Auth::id();
+        if ($transaction->buyer_id !== $userId && $transaction->seller_id !== $userId) {
+            abort(403, 'Unauthorized');
         }
-        return response()->json($tx);
+
+        return view('transactions.show', compact('transaction'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function offers()
     {
-        $tx = Transaction::findOrFail($id);
-        return response()->json($tx);
+        $offers = Transaction::where('seller_id', Auth::id())
+            ->where('status', 'pending')
+            ->with('buyer', 'item', 'offerItem')
+            ->latest()
+            ->paginate(20);
+
+        return view('transactions.offers', compact('offers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function accept(Transaction $transaction)
     {
-        $tx = Transaction::findOrFail($id);
-        return response()->json($tx);
+        if ($transaction->seller_id !== Auth::id()) {
+            abort(403, 'Only seller can accept offers');
+        }
+
+        $transaction->accept();
+
+        return redirect()->back()->with('success', 'Offer accepted successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function reject(Transaction $transaction)
     {
-        $tx = Transaction::findOrFail($id);
-        // do not allow arbitrary deletion via API
-        return response()->json(['message' => 'not allowed'], 405);
+        if ($transaction->seller_id !== Auth::id()) {
+            abort(403, 'Only seller can reject offers');
+        }
+
+        $transaction->reject();
+
+        return redirect()->back()->with('success', 'Offer rejected successfully!');
+    }
+
+    public function store(StoreTransactionRequest $request)
+    {
+        $item = Item::findOrFail($request->item_id);
+
+        if ($item->user_id === Auth::id()) {
+            return back()->withErrors(['error' => 'Cannot trade with your own items']);
+        }
+
+        if (!$item->isAvailable()) {
+            return back()->withErrors(['error' => 'Item is not available for trading']);
+        }
+
+        $transaction = new Transaction([
+            'buyer_id' => Auth::id(),
+            'seller_id' => $item->user_id,
+            'item_id' => $item->id,
+            'type' => $request->type,
+            'status' => 'pending',
+            'message' => $request->message,
+        ]);
+
+        if ($request->type === 'trade' && $request->offer_item_id) {
+            $offerItem = Item::findOrFail($request->offer_item_id);
+            if ($offerItem->user_id !== Auth::id() || !$offerItem->canBeTraded()) {
+                return back()->withErrors(['error' => 'Invalid offer item']);
+            }
+            $transaction->offer_item_id = $offerItem->id;
+        } elseif ($request->type === 'buy' && $request->offer_amount) {
+            $transaction->offer_amount = $request->offer_amount;
+        }
+
+        $transaction->save();
+
+        return redirect()->route('transactions.index')->with('success', 'Offer sent successfully!');
     }
 }

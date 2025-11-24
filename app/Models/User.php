@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -33,22 +36,65 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
     }
-    public function items()
+
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }
-    public function roles()
+
+    public function buyerTransactions(): HasMany
     {
-        return $this->belongsToMany(Role::class);
+        return $this->hasMany(Transaction::class, 'buyer_id');
     }
 
-    public function hasRole(string $role): bool
+    public function sellerTransactions(): HasMany
     {
-        return $this->roles()->where('name', $role)->exists();
+        return $this->hasMany(Transaction::class, 'seller_id');
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canEditItem(Item $item): bool
+    {
+        return $this->id === $item->user_id || $this->isAdmin();
+    }
+
+    public function canDeleteItem(Item $item): bool
+    {
+        return $this->id === $item->user_id || $this->isAdmin();
+    }
+
+    public function canBuyItem(Item $item): bool
+    {
+        return $this->id !== $item->user_id;
+    }
+
+    public function getAvatarUrl()
+    {
+        return $this->profile?->avatar ? asset('storage/' . $this->profile->avatar) : asset('images/default-avatar.png');
+    }
+
+    public function getStatistics(): array
+    {
+        return [
+            'total_items' => $this->items()->count(),
+            'available_items' => $this->items()->where('status', 'available')->count(),
+            'total_sales' => $this->sellerTransactions()->where('status', 'completed')->sum('total_price'),
+            'pending_trades' => $this->buyerTransactions()->where('status', 'pending')->count(),
+            'completed_trades' => $this->buyerTransactions()->where('status', 'completed')->count(),
+        ];
     }
     /**
      * Get the attributes that should be cast.
