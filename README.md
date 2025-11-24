@@ -1,7 +1,5 @@
 # Game Trading Marketplace - Complete Laravel Implementation
 
-<<<<<<< Updated upstream
-=======
 ## 🎮 Project Summary
 
 A **fully-functional game item trading marketplace** built with Laravel 11 and AdminLTE. Users can list items, browse the marketplace, buy items directly, or propose trades with other items or money. Admin dashboard provides complete oversight with user management and transaction monitoring.

@@ -12,18 +12,10 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-<<<<<<< Updated upstream
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-=======
         $this->call([
             RoleSeeder::class,
             AdminUserSeeder::class,
             ItemSeeder::class,
->>>>>>> Stashed changes
         ]);
     }
 }
