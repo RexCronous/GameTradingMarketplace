@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -33,6 +34,43 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+<<<<<<< Updated upstream
+=======
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function transactionsBought()
+    {
+        return $this->hasMany(Transaction::class, 'buyer_id');
+    }
+
+    public function transactionsSold()
+    {
+        return $this->hasMany(Transaction::class, 'seller_id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function hasRole(string $role): bool
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+>>>>>>> Stashed changes
     /**
      * Get the attributes that should be cast.
      *
