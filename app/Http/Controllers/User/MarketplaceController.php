@@ -11,7 +11,10 @@ class MarketplaceController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Item::where('status', 'available');
+        $query = Item::where('status', 'available')
+            ->where('user_id', '!=', Auth::id())
+            ->with('user');
+
         // Search
         if ($request->filled('search')) {
             $query->where('name', 'LIKE', '%' . $request->search . '%')

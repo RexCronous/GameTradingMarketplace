@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {

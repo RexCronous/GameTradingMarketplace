@@ -160,7 +160,7 @@
 
                         <li class="nav-item">
                             <a href="{{ route('marketplace.index') }}"
-                                class="nav-link @if(request()->routeIs('user.marketplace.*')) active @endif">
+                                class="nav-link @if(request()->routeIs('marketplace.*')) active @endif">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>Marketplace</p>
                             </a>
