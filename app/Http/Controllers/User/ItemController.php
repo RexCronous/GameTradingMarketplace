@@ -12,6 +12,7 @@ class ItemController extends Controller
 {
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $items = $user->items()->paginate(12);
         return view('user.items.index', compact('items'));
@@ -24,7 +25,8 @@ class ItemController extends Controller
 
     public function store(StoreItemRequest $request)
     {
-        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
@@ -37,7 +39,9 @@ class ItemController extends Controller
 
     public function edit(Item $item)
     {
-        if (Auth::user()->id !== $item->user_id && !Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
+        if ($user->id !== $item->user_id && !$user->isAdmin()) {
             abort(403);
         }
         return view('user.items.edit', compact('item'));
@@ -45,7 +49,9 @@ class ItemController extends Controller
 
     public function update(UpdateItemRequest $request, Item $item)
     {
-        if (Auth::user()->id !== $item->user_id && !Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
+        if ($user->id !== $item->user_id && !$user->isAdmin()) {
             abort(403);
         }
         $data = $request->validated();
@@ -60,7 +66,9 @@ class ItemController extends Controller
 
     public function destroy(Item $item)
     {
-        if (Auth::user()->id !== $item->user_id && !Auth::user()->isAdmin()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
+        if ($user->id !== $item->user_id && !$user->isAdmin()) {
             abort(403);
         }
         $item->delete();

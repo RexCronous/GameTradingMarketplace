@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\TransactionController as AdminTransactionControll
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::middleware('auth')->group(function () {

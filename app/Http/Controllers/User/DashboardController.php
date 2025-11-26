@@ -9,6 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $stats = $user->getStatistics();
         

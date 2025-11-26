@@ -6,11 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Game Trading Marketplace') }} - @yield('title', 'Dashboard')</title>
 
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/adminlte.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -147,14 +142,7 @@
                             <p>Transaction History</p>
                         </a>
                     </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('user.profile.edit') }}" class="nav-link @if(request()->routeIs('user.profile.*')) active @endif">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Profile</p>
-                        </a>
-                    </li>
-
+                    
                 </ul>
             </nav>
         </div>
@@ -211,8 +199,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/adminlte.min.js"></script>
 <!-- Select2 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
 

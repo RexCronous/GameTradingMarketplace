@@ -17,7 +17,8 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user = Auth::user(); 
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -30,7 +31,7 @@ class ProfileController extends Controller
         ]);
 
         $user->update([
-            'name' => $request->name,
+            'name' => $request->name, 
             'email' => $request->email,
         ]);
 

@@ -5,13 +5,13 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Make an Offer for {{ $item->name }}</h3>
             </div>
             <div class="card-body">
-                <div class="row mb-3">
+                <div class="row mb-5">
                     <div class="col-md-4">
                         <div class="card">
                             <img src="{{ $item->getImageUrl() }}" class="card-img-top" alt="{{ $item->name }}">
@@ -99,6 +99,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 @push('scripts')
 <script>

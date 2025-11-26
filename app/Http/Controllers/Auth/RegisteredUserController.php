@@ -57,10 +57,6 @@ class RegisteredUserController extends Controller
             'username' => $username,
         ]);
 
-        // ensure default 'user' role exists and attach to user
-        $role = Role::firstOrCreate(['name' => 'user'], ['label' => 'User']);
-        $user->roles()->syncWithoutDetaching([$role->id]);
-
         event(new Registered($user));
 
         Auth::login($user);

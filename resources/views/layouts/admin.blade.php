@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'GameTradingMarketplace') }} - Admin</title>
-    <!-- AdminLTE CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous" />
     @vite(['resources/css/app.css'])
 </head>
 <body class="hold-transition sidebar-mini">
@@ -60,7 +57,6 @@
 
     <footer class="main-footer"><div class="float-right d-none d-sm-inline">v1</div><strong>&copy; {{ date('Y') }} {{ config('app.name') }}</strong></footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 @vite(['resources/js/app.js'])
 </body>
 </html>

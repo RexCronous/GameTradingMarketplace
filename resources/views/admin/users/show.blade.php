@@ -12,7 +12,7 @@
                     <img class="profile-user-img img-fluid img-circle" src="{{ $user->getAvatarUrl() }}" alt="{{ $user->name }}">
                 </div>
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
-                <p class="text-muted text-center">@{{ $user->profile->username ?? 'N/A' }}</p>
+                <p class="text-muted text-center">{{ $user->profile->username ?? 'N/A' }}</p>
                 <ul class="list-group list-group-unbordered mb-3">
                     <li class="list-group-item">
                         <b>Email</b> <span class="float-right">{{ $user->email }}</span>

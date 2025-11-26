@@ -38,7 +38,7 @@ class Item extends Model
 
     public function getImageUrl(): string
     {
-        return $this->image ? asset('storage/' . $this->image) : asset('images/placeholder.png');
+        return $this->image ? asset('storage/' . $this->image, true) : asset('images/placeholder.png');
     }
 
     public function isAvailable(): bool
