@@ -46,7 +46,7 @@
     <h1>🎮 Game Trading Marketplace</h1>
     <p>Buy, Sell, and Trade Game Assets Easily</p>
 
-    <a href="{{ route('user.marketplace.index') }}" class="btn btn-main mt-3">
+    <a href="{{ route('marketplace.index') }}" class="btn btn-main mt-3">
         Explore Marketplace
     </a>
 
