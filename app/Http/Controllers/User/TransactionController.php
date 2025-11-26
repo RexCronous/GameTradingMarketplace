@@ -78,7 +78,7 @@ class TransactionController extends Controller
             'seller_id' => $item->user_id,
             'offer_item_id' => $data['offer_item_id'] ?? null,
             'offer_amount' => $data['offer_amount'] ?? null,
-            'total_price' => $data['total_price'],
+            'total_price' => $data['total_price'] ?? $item->price,
             'type' => $data['type'],
             'status' => 'pending',
             'notes' => $data['notes'] ?? null,

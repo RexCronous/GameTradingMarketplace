@@ -39,6 +39,7 @@
             <div class="icon">
                 <i class="fas fa-check-circle"></i>
             </div>
+            <a href="{{ route('admin.transactions.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 

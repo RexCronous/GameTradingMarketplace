@@ -56,7 +56,7 @@
                 <a href="{{ route('user.items.create') }}" class="btn btn-primary btn-block mb-2">
                     <i class="fas fa-plus"></i> Add New Item
                 </a>
-                <a href="{{ route('user.marketplace.index') }}" class="btn btn-success btn-block mb-2">
+                <a href="{{ route('marketplace.index') }}" class="btn btn-success btn-block mb-2">
                     <i class="fas fa-shopping-cart"></i> Browse Marketplace
                 </a>
                 <a href="{{ route('user.transactions.index') }}" class="btn btn-info btn-block">

@@ -39,6 +39,9 @@
             text-align: center;
             white-space: nowrap;
         }
+        .sidebar-collapse .sidebar-footer {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -52,10 +55,10 @@
                     <i class="fas fa-bars"></i>
                 </a>
 
-                <a href="{{ url('/marketplace') }}" class="d-flex align-items-center mb-0" style="width: auto">
+                <a href="{{ url('/marketplace') }}" class="d-flex align-items-center mb-0 ms-4" style="width: auto">
                     <i class="fas fa-gamepad mr-2"
-                        style="width:33px;height:33px;display:flex;align-items:center;justify-content:center;"></i>
-                    <span class="font-weight-light">{{ config('app.name') }}</span>
+                        style="width:33px;height:33px;display:flex;align-items:center;justify-content:center;font-size:1.5rem"></i>
+                    <span class="font-weight-bold" style="font-size:1.2rem">{{ config('app.name') }}</span>
                 </a>
             </div>
             <ul class="navbar-nav ml-auto">
@@ -99,7 +102,7 @@
         <!-- Sidebar -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <div class="sidebar">
-                <nav class="mt-2">
+                <nav class="mt-3">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
                         @auth
@@ -188,10 +191,8 @@
             <!-- Content Header -->
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">@yield('page-title')</h1>
-                        </div>
+                    <div class="row mb-2 d-flex justify-content-center">
+                        <h1 class="m-0">@yield('page-title')</h1>
                     </div>
                 </div>
             </div>

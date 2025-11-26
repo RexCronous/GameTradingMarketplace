@@ -21,7 +21,7 @@
             <div class="card-header">
                 <h3 class="card-title">Make an Offer</h3>
             </div>
-            <form action="{{ route('transactions.store') }}" method="POST">
+            <form action="{{ route('user.transactions.store', $item->id) }}" method="POST">
                 @csrf
 
                 <div class="card-body">
@@ -41,7 +41,7 @@
 
                     <div class="form-group" id="trade-section" style="display:none;">
                         <label for="offer_item_id">Select Item to Trade</label>
-                        <select name="offer_item_id" id="offer_item_id" class="form-control select2">
+                        <select name="offer_item_id" id="offer_item_id" class="form-control">
                             <option value="">Choose an item...</option>
                             @foreach($myItems as $myItem)
                                 <option value="{{ $myItem->id }}">{{ $myItem->name }} (${{ number_format($myItem->price, 2) }})</option>

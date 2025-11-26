@@ -1,60 +1,11 @@
-@extends('layouts.app') {{-- Uses AdminLTE layout but hides sidebar for guests --}}
+@extends('layouts.app')
 
 @section('page-title', 'Welcome')
 
-@push('styles')
-<style>
-    .landing-header {
-        background: linear-gradient(90deg, #1f2d3d, #343a40);
-        padding: 80px 20px;
-        text-align: center;
-        color: white;
-    }
-    .landing-header h1 {
-        font-size: 40px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .feature-box {
-        background: #fff;
-        border-radius: 8px;
-        padding: 25px;
-        text-align: center;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        transition: 0.3s;
-        height: 100%;
-    }
-    .feature-box:hover {
-        transform: translateY(-5px);
-    }
-    .btn-main {
-        background-color: #00b894;
-        border: none;
-        font-size: 18px;
-        padding: 12px 30px;
-        border-radius: 6px;
-        color: white;
-    }
-    .btn-main:hover {
-        background-color: #019374;
-    }
-</style>
-@endpush
-
 @section('content')
 <div class="landing-header">
-    <h1>🎮 Game Trading Marketplace</h1>
-    <p>Buy, Sell, and Trade Game Assets Easily</p>
-
-    <a href="{{ route('marketplace.index') }}" class="btn btn-main mt-3">
-        Explore Marketplace
-    </a>
-
-    @guest
-        <a href="{{ route('login') }}" class="btn btn-outline-light ml-2 mt-3">
-            Login / Register
-        </a>
-    @endguest
+    <h1 class="text-center">🎮 Game Trading Marketplace</h1>
+    <p class="text-center">Buy, Sell, and Trade Game Assets Easily</p>
 </div>
 
 <div class="container py-5">
@@ -82,4 +33,11 @@
         </div>
     </div>
 </div>
+
+<div class="landing-btn d-flex justify-content-center mb-5">
+    <a href="{{ route('marketplace.index') }}" class="btn btn-main mt-3 bg-primary">
+        Explore Marketplace
+    </a>
+</div>
+
 @endsection

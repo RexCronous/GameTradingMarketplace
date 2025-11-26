@@ -52,7 +52,16 @@ class MarketplaceController extends Controller
             abort(403, 'You cannot view your own items in marketplace');
         }
 
-        $item->load('user', 'user.profile');
-        return view('marketplace.show', compact('item'));
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        if ($user)
+            return view('marketplace.show', [
+                'item' => $item,
+                'myItems' =>$user->items()->where('status', 'available')->get(),
+            ]);
+        return view('marketplace.show', [
+                'item' => $item,
+                'myItems' => Item::whereRaw('1 = 0')->get(), // empty collection
+            ]);
     }
 }
