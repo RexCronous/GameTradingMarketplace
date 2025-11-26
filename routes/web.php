@@ -12,7 +12,13 @@ use App\Http\Controllers\Admin\TransactionController as AdminTransactionControll
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('welcome');
+});
+
+// Marketplace
+Route::prefix('marketplace')->name('marketplace.')->group(function () {
+    Route::get('/', [MarketplaceController::class, 'index'])->name('index');
+    Route::get('/{item}', [MarketplaceController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -31,12 +37,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{item}/edit', [UserItemController::class, 'edit'])->name('edit');
         Route::put('/{item}', [UserItemController::class, 'update'])->name('update');
         Route::delete('/{item}', [UserItemController::class, 'destroy'])->name('destroy');
-    });
-
-    // Marketplace
-    Route::prefix('marketplace')->name('user.marketplace.')->group(function () {
-        Route::get('/', [MarketplaceController::class, 'index'])->name('index');
-        Route::get('/{item}', [MarketplaceController::class, 'show'])->name('show');
     });
 
     // User Transactions

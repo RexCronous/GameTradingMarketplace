@@ -15,8 +15,6 @@ class Profile extends Model
         'username',
         'avatar',
         'bio',
-        'phone',
-        'address',
     ];
 
     public function user(): BelongsTo
@@ -26,6 +24,6 @@ class Profile extends Model
 
     public function getAvatarUrl(): string
     {
-        return $this->avatar ? asset('storage/' . $this->avatar) : asset('images/default-avatar.png');
+        return $this->avatar ? asset('storage/' . $this->avatar) : asset('storage/images/default-avatar.png');
     }
 }

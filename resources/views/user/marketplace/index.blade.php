@@ -11,7 +11,7 @@
                 <h3 class="card-title">Search & Filter</h3>
             </div>
             <div class="card-body">
-                <form method="GET" action="{{ route('user.marketplace.index') }}" class="form-inline">
+                <form method="GET" action="{{ route('marketplace.index') }}" class="form-inline">
                     <div class="form-group mr-2 mb-2">
                         <input type="text" name="search" class="form-control" placeholder="Search items..." 
                                value="{{ request('search') }}">
@@ -41,7 +41,7 @@
                     <button type="submit" class="btn btn-primary mb-2">
                         <i class="fas fa-search"></i> Search
                     </button>
-                    <a href="{{ route('user.marketplace.index') }}" class="btn btn-secondary mb-2 ml-2">
+                    <a href="{{ route('marketplace.index') }}" class="btn btn-secondary mb-2 ml-2">
                         <i class="fas fa-redo"></i> Reset
                     </a>
                 </form>
@@ -71,7 +71,7 @@
                     <h4 class="text-primary">${{ number_format($item->price, 2) }}</h4>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="{{ route('user.marketplace.show', $item) }}" class="btn btn-sm btn-primary btn-block">
+                    <a href="{{ route('marketplace.show', $item) }}" class="btn btn-sm btn-primary btn-block">
                         <i class="fas fa-eye"></i> View Details
                     </a>
                 </div>

@@ -22,6 +22,18 @@
             transform: translateY(-5px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 12px;
+            color: #ddd;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -29,20 +41,12 @@
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                    <i class="fas fa-bars"></i>
-                </a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ url('/') }}" class="nav-link">
-                    <strong>{{ config('app.name') }}</strong>
-                </a>
-            </li>
-        </ul>
-
+        <a href="{{ url('/') }}" class="brand-link d-flex align-items-center mb-0" style="width: auto">
+            <i class="fas fa-gamepad brand-image img-circle elevation-3 mr-2" ></i>
+            <span class="font-weight-light">{{ config('app.name') }}</span>
+        </a>
         <ul class="navbar-nav ml-auto">
+            @auth
             <!-- User Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -67,20 +71,31 @@
                     </form>
                 </div>
             </li>
+            @endauth
+
+            {{-- If user is not logged in --}}
+            @guest
+                <li class="nav-item">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-light ml-2">Register</a>
+                </li>
+            @endguest
         </ul>
     </nav>
 
     <!-- Sidebar -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="{{ url('/') }}" class="brand-link">
-            <i class="fas fa-gamepad brand-image img-circle elevation-3" style="width: 33px; height: 33px; display: flex; align-items: center; justify-content: center;"></i>
-            <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
-        </a>
+        <div class="brand-link d-flex align-items-center justify-content-between px-3">
+            <a class="text-white" data-widget="pushmenu" href="#" role="button" style="font-size:20px;">
+                <i class="fas fa-bars"></i>
+            </a>
+        </div>
 
         <div class="sidebar">
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
+                    @auth
                     @if(Auth::user()->isAdmin())
                         <!-- Admin Menu -->
                         <li class="nav-item">
@@ -113,6 +128,7 @@
 
                         <li class="nav-divider"></li>
                     @endif
+                    @endauth
 
                     <!-- User Menu -->
                     <li class="nav-item">
@@ -130,7 +146,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('user.marketplace.index') }}" class="nav-link @if(request()->routeIs('user.marketplace.*')) active @endif">
+                        <a href="{{ route('marketplace.index') }}" class="nav-link @if(request()->routeIs('user.marketplace.*')) active @endif">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Marketplace</p>
                         </a>
@@ -145,6 +161,10 @@
                     
                 </ul>
             </nav>
+            <!-- Footer -->
+            <div class="sidebar-footer">
+                © {{ date('Y') }} Game Trading Marketplace
+            </div>
         </div>
     </aside>
 
@@ -188,10 +208,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <strong>Game Trading Marketplace &copy; {{ date('Y') }} </strong>
-    </footer>
+   
 
 </div>
 

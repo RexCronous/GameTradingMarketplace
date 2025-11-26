@@ -13,6 +13,7 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         
         $purchased = $user->buyerTransactions()
@@ -51,8 +52,9 @@ class TransactionController extends Controller
         if (!$item->isAvailable()) {
             abort(403, 'Item is no longer available');
         }
-
-        $user_items = Auth::user()->items()
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $user_items = $user->items()
             ->where('status', 'available')
             ->get();
 
