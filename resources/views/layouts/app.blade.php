@@ -173,7 +173,7 @@
                             <a href="{{ route('user.transactions.index') }}"
                                 class="nav-link @if(request()->routeIs('user.transactions.*')) active @endif">
                                 <i class="nav-icon fas fa-history"></i>
-                                <p>Transaction History</p>
+                                <p>Transaction</p>
                             </a>
                         </li>
 

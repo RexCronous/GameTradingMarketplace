@@ -3,7 +3,7 @@
 @section('page-title', 'Welcome')
 
 @section('content')
-<div class="landing-header">
+<div class="landing-header mt-5">
     <h1 class="text-center">🎮 Game Trading Marketplace</h1>
     <p class="text-center">Buy, Sell, and Trade Game Assets Easily</p>
 </div>

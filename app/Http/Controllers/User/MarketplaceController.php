@@ -17,8 +17,8 @@ class MarketplaceController extends Controller
 
         // Search
         if ($request->filled('search')) {
-            $query->where('name', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('description', 'LIKE', '%' . $request->search . '%');
+            $query->where('name', 'ILIKE', '%' . $request->search . '%')
+                ->orWhere('description', 'ILIKE', '%' . $request->search . '%');
         }
 
         // Filter by price

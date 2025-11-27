@@ -19,49 +19,6 @@ class TransactionController extends Controller
         return view('transactions.index', compact('transactions'));
     }
 
-    public function show(Transaction $transaction)
-    {
-        $userId = Auth::id();
-        if ($transaction->buyer_id !== $userId && $transaction->seller_id !== $userId) {
-            abort(403, 'Unauthorized');
-        }
-
-        return view('transactions.show', compact('transaction'));
-    }
-
-    public function offers()
-    {
-        $offers = Transaction::where('seller_id', Auth::id())
-            ->where('status', 'pending')
-            ->with('buyer', 'item', 'offerItem')
-            ->latest()
-            ->paginate(20);
-
-        return view('transactions.offers', compact('offers'));
-    }
-
-    public function accept(Transaction $transaction)
-    {
-        if ($transaction->seller_id !== Auth::id()) {
-            abort(403, 'Only seller can accept offers');
-        }
-
-        $transaction->accept();
-
-        return redirect()->back()->with('success', 'Offer accepted successfully!');
-    }
-
-    public function reject(Transaction $transaction)
-    {
-        if ($transaction->seller_id !== Auth::id()) {
-            abort(403, 'Only seller can reject offers');
-        }
-
-        $transaction->reject();
-
-        return redirect()->back()->with('success', 'Offer rejected successfully!');
-    }
-
     public function store(StoreTransactionRequest $request)
     {
         $item = Item::findOrFail($request->item_id);

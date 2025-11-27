@@ -25,7 +25,7 @@ class StoreItemRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
-            'image' => ['required', 'image', 'max:5120'],
+            'image' => ['required', 'image', 'max:10240'],
             'status' => ['sometimes', 'in:available,reserved,sold,traded'],
         ];
     }
