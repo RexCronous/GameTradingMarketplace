@@ -4,7 +4,11 @@
 
 @section('content')
 <div class="landing-header mt-5">
-    <h1 class="text-center">🎮 Game Trading Marketplace</h1>
+    <a href="{{ url('/marketplace') }}" class="d-flex justify-content-center" style="width: auto">
+        <i class="fas fa-gamepad mr-4"
+            style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:3rem"></i>
+        <h1 class="font-weight-bold">{{ config('app.name') }}</h1>
+    </a>
     <p class="text-center">Buy, Sell, and Trade Game Assets Easily</p>
 </div>
 

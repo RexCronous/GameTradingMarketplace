@@ -100,7 +100,7 @@ class TransactionController extends Controller
             return back()->with('error', 'This trade cannot be accepted');
         }
 
-        if ($transaction->isTradeType() && $transaction->offerItem && $transaction->offerItem->user_id !== $user->id) {
+        if ($transaction->isTradeType() && $transaction->offerItem && $transaction->offerItem->user_id === $user->id) {
             abort(403, 'Invalid trade offer');
         }
 

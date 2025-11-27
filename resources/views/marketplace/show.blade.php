@@ -58,10 +58,16 @@
                     </div>
 
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
+
+                     @if ($item->status !== 'available')
+                        <h5 class="form-text text-danger">Item not available</h5>
+                    @endif 
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-success" id="submitBtn">
+                    <button type="submit" class="btn btn-success" @if ($item->status !== 'available')
+                        disabled
+                    @endif id="submitBtn">
                         <i class="fas fa-check"></i> Send Offer
                     </button>
                     <a href="{{ route('marketplace.index') }}" class="btn btn-secondary">Back</a>
