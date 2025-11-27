@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($recentTransactions ?? [] as $tx)
+                        @forelse($recent_transactions ?? [] as $tx)
                             <tr>
                                 <td>{{ $tx->item->name ?? 'N/A' }}</td>
                                 <td>{{ $tx->buyer->name ?? 'N/A' }}</td>
@@ -108,7 +108,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($users ?? [] as $user)
+                        @forelse($recent_users ?? [] as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>

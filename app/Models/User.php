@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     public function getAvatarUrl()
     {
-        return $this->profile?->avatar ? asset('storage/' . $this->profile->avatar) : asset('images/default-avatar.png');
+        return $this->profile?->avatar ? asset('storage/' . $this->profile->avatar) : asset('storage/images/default-avatar.png');
     }
 
     public function getStatistics(): array

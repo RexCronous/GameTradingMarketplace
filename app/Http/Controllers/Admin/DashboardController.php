@@ -27,6 +27,11 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'recent_transactions'));
+        $recent_users = User::where('role', 'user')
+            ->orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
+
+        return view('admin.dashboard', compact('stats', 'recent_transactions', 'recent_users'));
     }
 }
